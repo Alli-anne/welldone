@@ -28,6 +28,8 @@ header {
   background-color: var(--color-sage);
   text-align: center;
   border-radius: 1rem;
+  border-bottom: 10px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
 }
 header h1 {
   text-align: center;
