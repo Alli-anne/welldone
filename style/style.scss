@@ -16,7 +16,7 @@ body {
   background-color: var(--color-seafoam);
   color: var(--color-indigo);
   margin: 0;
-  padding: 0rem;
+  padding: 0;
 }
 
 h1, h2, h3 {
@@ -24,10 +24,9 @@ h1, h2, h3 {
   color: var(--color-coral);
 }
 
-
 header {
-  padding: 0rem;
-  margin: 0rem;
+  padding: 0;
+  margin: 0;
   background-color: var(--color-sage);
   text-align: center;
   border-radius: 1rem;
@@ -38,106 +37,146 @@ header {
     text-align: center;
     font-size: 10rem;
     padding: 1rem;
-    margin-bottom: 0rem;
+    margin-bottom: 0;
     margin-top: 1rem;
-    padding-bottom: 0rem;
+    padding-bottom: 0;
   }
-   p{
+  p {
     text-align: center;
     font-size: 1rem;
     padding: 1rem;
-    margin-top: 0rem;
+    margin-top: 0;
     margin-bottom: 1rem;
-    padding-top: 0rem;
-   }
-}
-main{
-    margin: 1rem;
-    padding: 0rem;
-    display:flex; 
-    flex-direction: row;
-    justify-content: center;
-    align-items: top;
-    .more-info{
-     background-color: var(--color-sage);
-     border-radius: 1rem;
-     margin: 1rem;
-     margin-left: 3rem;
-     padding: 3rem;
-     padding-top:0rem;
-     border-bottom: 10px solid var(--color-indigo);
-     border-right: 5px solid var(--color-indigo);
-}
-}
-.todo{
-    h2{
-        color: var(--color-sage);
-        text-transform: uppercase;
-        margin: 0rem;
-        padding: 0rem;
-        text-align: left;
-    }
-    .finished{
-        background-color: var(--color-coral);
-        border-radius: 1rem;
-        text-align: left;
-        padding: .5rem;
-        padding-top:1rem;
-        margin-top: 1rem;
-        height: auto;
-        color: var(--color-sage);
-        border-bottom: 10px solid var(--color-indigo);
-        border-right: 5px solid var(--color-indigo);
-    }
-    form{
-        margin: 0 auto;
-        padding:0rem;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        margin-top: 1rem;
-    
-        input{
-            margin: .25rem;
-            padding: .5rem;
-            width: 80%;
-            border-radius: .5rem;
-            font-family: var(--font-body);
-            background-color: var(--color-sage);
-            border:none;
-            border-bottom: 5px solid var(--color-indigo);
-            border-right: 3px solid var(--color-indigo);
-        }
-        button{
-            padding: .5rem;
-            width: 20%;
-            border-radius: .5rem;
-            font-family: var(--font-body);
-            background-color: var(--color-coral);
-            border: none;
-            color: var(--color-sage);
-            border-bottom: 5px solid var(--color-indigo);
-            border-right: 3px solid var(--color-indigo);
-        }
-    }
+    padding-top: 0;
+  }
 }
 
-img{
-    width: 15%;
+main {
+  margin: 1rem;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+
+  .more-info {
+    background-color: var(--color-sage);
+    border-radius: 1rem;
+    margin: 1rem;
+    margin-left: 3rem;
+    padding: 3rem;
+    padding-top: 0;
+    border-bottom: 10px solid var(--color-indigo);
+    border-right: 5px solid var(--color-indigo);
+  }
+}
+
+.todo {
+  h2 {
+    color: var(--color-sage);
+    text-transform: uppercase;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+  .finished {
+    background-color: var(--color-coral);
+    border-radius: 1rem;
+    text-align: left;
+    padding: .5rem;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    height: auto;
+    color: var(--color-sage);
+    border-bottom: 10px solid var(--color-indigo);
+    border-right: 5px solid var(--color-indigo);
+  }
+  form {
     margin: 0 auto;
-    display: block;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 1rem;
+
+    input {
+      margin: .25rem;
+      padding: .5rem;
+      width: 80%;
+      border-radius: .5rem;
+      font-family: var(--font-body);
+      background-color: var(--color-sage);
+      border: none;
+      border-bottom: 5px solid var(--color-indigo);
+      border-right: 3px solid var(--color-indigo);
+    }
+    button {
+      padding: .5rem;
+      width: 20%;
+      border-radius: .5rem;
+      font-family: var(--font-body);
+      background-color: var(--color-coral);
+      border: none;
+      color: var(--color-sage);
+      border-bottom: 5px solid var(--color-indigo);
+      border-right: 3px solid var(--color-indigo);
+    }
+  }
+}
+
+img {
+  width: 10%;
+  margin: 0 auto;
+  display: block;
 }
 
 footer {
-    background-color: var(--color-sage);
-    border-radius: 1rem;
-    position:fixed;
-    bottom: 0;
-    width: 100%;
+  background-color: var(--color-sage);
+  border-radius: 1rem;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: .5rem;
+
+  text-align: center;
+  border-bottom: 10px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+}
+
+/* ===== MOBILE STYLES ===== */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 3rem;
+  }
+  
+  main {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .more-info {
+    margin-left: 0;
     padding: 1rem;
-    text-align: center;
-     border-bottom: 10px solid var(--color-indigo);
-border-right: 5px solid var(--color-indigo);
+  }
+
+  .todo form {
+    flex-direction: column;
+    
+    input, button {
+      width: 100%;
+    }
+    button {
+      margin-top: 0.5rem;
+    }
+  }
+
+  img {
+    width: 40%;
+  }
+  footer{
+    position:static;
+  }
 }
