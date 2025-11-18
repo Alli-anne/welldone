@@ -49,6 +49,7 @@ function todoSubmitFunction() {
     localStorage.setItem("todos", JSON.stringify(todos));
 
     todoInput.value = "";
+    getRandomAdvice();
 }
 /**
  * Load todos from localStorage and display them in the finished list.
@@ -65,7 +66,6 @@ function loadTodos() {
     });
     updateCount();
 }
-/*******  f98fe8b1-6a07-42eb-9bf4-cd17030a53e7  *******/
 function updateCount() {
     let count = finishedList.children.length;
 
@@ -76,10 +76,11 @@ function updateCount() {
     }
 
     console.log(count);
+    
+    
 }
 
 
-// Run this when the page loads
 document.addEventListener("DOMContentLoaded", loadTodos);
 
 
@@ -89,6 +90,20 @@ todoForm.addEventListener("submit", (event) => {
 });
 
 
-// Add event listeners
 yesButton.addEventListener("click", yesAndNo);
 noButton.addEventListener("click", yesAndNo);
+
+async function getRandomAdvice(){
+    try {
+        const response = await fetch("https://api.adviceslip.com/advice");
+        const data = await response.json();
+        
+        const quote = data.slip.advice;
+        const advice = document.getElementById("advice");
+        advice.textContent = quote;
+        
+    } catch (error) {
+        console.error(error);
+    }
+}
+

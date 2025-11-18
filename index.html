@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Well Done</title>
     <link rel="stylesheet" href="style/style.css" />
+    <script type="module" src="script.js"></script>
     
 </head>
 <body>
     <header id="header">
         <h1 id="title">Well Done</h1>
         <p id="tagline">The app to track what you have done in the day. See how productive you are being during the day</p>
+        <div id="auth-container">
+  <nav id="auth-nav">
+    <a href="#">Done List</a>
+    <a href="#">Calendar</a>
+    <a href="#">Reflections</a>
+    <a href="#">About</a>
+    <a href="#">Login</a>
+  </nav>
+  
+</div>
     </header>
     <main id="main-content">
         <section class="todo" id="todo-section">
@@ -24,11 +35,18 @@
                 </ul>
             </div>
         </section>
-
+    <div>
         <div class="more-info" id="more-info">
             <div class="count"> 
                 <h2 id="count-display">things done today</h2>
             </div>
+            
+        </div>
+         <div class="more-info" id="more-info">
+            <h2>Calendar</h2>
+        </div>
+        
+        <div class="more-info" id="more-info">
             <div class="successful" id="successful-container">
                 <p id="success-question">Do you feel like today was fulfilling?</p>
                 <form class="successful--form" id="success-form">
@@ -36,12 +54,23 @@
                     <button type="button" name="answer" id="no">No</button>
                 </form>
             </div>
+     </div>
+
+     </div>
+      <div class="middle-flex">
+        <div class="more-info" id="more-info">
+            <h2>Reflections</h2>
         </div>
+    </div>
+
+    <section class="alert-info">
+        <h3>A little random piece of advice</h3>
+        <p id="advice" class="none"></p>
+    </section>
     </main>
 
     <footer id="footer">
         <img class="footer--img" id="footer-logo" src="allisonlogo-03.png" alt="a handmade logo created by Allison">
     </footer>
-   <script src="script.js"></script>
 </body>
 </html>
