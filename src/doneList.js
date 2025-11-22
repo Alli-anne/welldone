@@ -1,6 +1,4 @@
 import { loadHeaderFooter } from "./main.js";
-console.log("connected")
 
-console.log("about.js loaded");
 
 loadHeaderFooter();

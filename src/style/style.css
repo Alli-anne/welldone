@@ -206,4 +206,12 @@ footer {
   }
 }
 
+.middle-flex{
+  color:var(--color-sage)
+}
+.main-content-cal{
+  display: flex;
+  flex-direction: column;
+}
+
 /*# sourceMappingURL=style.css.map */
