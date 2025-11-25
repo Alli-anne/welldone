@@ -11,7 +11,7 @@ const initDb = async () => {
 
   try {
     const client = await MongoClient.connect(process.env.MONGODB_URI);
-    _db = client.db('project2'); // explicitly choose your database
+    _db = client.db('welldone'); // explicitly choose your database
     console.log('Database connected');
     return _db;
   } catch (err) {

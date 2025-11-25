@@ -1,9 +1,12 @@
-const session = require('express-session');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
+import 'dotenv/config';
+import session from "express-session";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
 
-const { initDb, getDb } = require('./database/connect'); // FIX HERE
+import todo from "./route/listPath.js";
+import { initDb, getDb } from "./database/connect.js";
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,30 +14,25 @@ const port = process.env.PORT || 3000;
 console.log("APP.JS STARTED");
 
 app.use(express.static("public"));
-
-
-
-// Session middleware
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true
-}));
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// CORS
 app.use(cors({
   origin: '*',
   methods: ['GET','POST','PUT','DELETE','OPTIONS'],
   allowedHeaders: ['Content-Type','Authorization']
 }));
 
-// Test DB endpoint
+app.use(session({
+  secret: process.env.SESSION_SECRET || "default_secret",
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use("/", todo);
+
 app.get("/test-db", async (req, res) => {
   try {
-    const db = getDb();
+    const db = await getDb();
     const result = await db.command({ ping: 1 });
 
     if (result.ok === 1) {
@@ -47,7 +45,6 @@ app.get("/test-db", async (req, res) => {
   }
 });
 
-// Start server only after DB connection succeeds
 initDb()
   .then(() => {
     app.listen(port, () => {

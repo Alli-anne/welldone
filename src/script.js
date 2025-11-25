@@ -110,3 +110,38 @@ async function getRandomAdvice(){
     }
 }
 
+async function fetchLists() {
+  try {
+    const res = await fetch("http://localhost:3000/lists");
+    if (!res.ok) throw new Error("Network response was not ok");
+    const lists = await res.json();
+    console.log(lists);
+
+    // Example: display in HTML
+    const listContainer = document.getElementById("list-container");
+    listContainer.innerHTML = lists.map(item => `<li>${item.title}</li>`).join("");
+  } catch (err) {
+    console.error("Error fetching lists:", err);
+  }
+}
+async function createList() {
+  try {
+    const res = await fetch("http://localhost:3000/lists", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ title: "New List" })
+    });
+    if (!res.ok) throw new Error("Network response was not ok");
+    const list = await res.json();
+    console.log(list);
+  } catch (err) {
+    console.error("Error creating list:", err);
+  }
+}
+
+createList();
+
+// Call it when the page loads
+fetchLists();
