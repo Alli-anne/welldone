@@ -1,25 +1,14 @@
 {
   "name": "welldone",
   "version": "1.0.0",
-  "main": "script.js",
+  "type": "module",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Alli-anne/welldone.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Alli-anne/welldone/issues"
-  },
-  "homepage": "https://github.com/Alli-anne/welldone#readme",
-  "description": "",
   "dependencies": {
     "@supabase/supabase-js": "^2.56.1",
     "body-parser": "^2.2.1",
@@ -35,3 +24,4 @@
     "vite": "^7.1.2"
   }
 }
+
