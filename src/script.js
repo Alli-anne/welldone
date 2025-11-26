@@ -1,5 +1,6 @@
 // Header
 import {loadHeaderFooter} from "./main.js";
+import { getDateInfo } from "./calendar.js";
 
 loadHeaderFooter();
 const header = document.getElementById("header");
@@ -112,7 +113,7 @@ async function getRandomAdvice(){
 
 async function fetchLists() {
   try {
-    const res = await fetch("http://localhost:3000/lists");
+    const res = await fetch("https://welldone-api.onrender.com/lists");
     if (!res.ok) throw new Error("Network response was not ok");
     const lists = await res.json();
     console.log(lists);
@@ -126,7 +127,7 @@ async function fetchLists() {
 }
 async function createList() {
   try {
-    const res = await fetch("http://localhost:3000/lists", {
+    const res = await fetch("https://welldone-api.onrender.com/lists", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
