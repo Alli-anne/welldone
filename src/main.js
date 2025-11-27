@@ -28,8 +28,8 @@ function loadTemplate(path) {
   };
 }
 export async function loadHeaderFooter(){
- const headerTemplateFn = loadTemplate("/particals/header.html");
-  const footerTemplateFn = loadTemplate("/particals/footer.html");
+ const headerTemplateFn = loadTemplate("./particals/header.html");
+  const footerTemplateFn = loadTemplate("./particals/footer.html");
   const headerHTML = await headerTemplateFn();
   const footerHTML = await footerTemplateFn();
   const headerEl = document.querySelector("#header");

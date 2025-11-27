@@ -42,18 +42,21 @@ function yesAndNo(event) {
 }
 
 function todoSubmitFunction() {
-    const listItem = document.createElement("li");
-    listItem.textContent = todoInput.value;
+  const listItem = document.createElement("li");
+  listItem.textContent = todoInput.value;
 
-    finishedList.appendChild(listItem);
+  finishedList.appendChild(listItem);
 
-    // Save to localStorage
-    let todos = JSON.parse(localStorage.getItem("todos")) || [];
-    todos.push(todoInput.value);
-    localStorage.setItem("todos", JSON.stringify(todos));
+  // Save locally
+  let todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.push(todoInput.value);
+  localStorage.setItem("todos", JSON.stringify(todos));
 
-    todoInput.value = "";
-    getRandomAdvice();
+  todoInput.value = "";
+  getRandomAdvice();
+
+  // Refresh list after adding a new item
+  fetchLists();
 }
 /**
  * Load todos from localStorage and display them in the finished list.
@@ -115,12 +118,15 @@ async function fetchLists() {
   try {
     const res = await fetch("https://welldone-api.onrender.com/lists");
     if (!res.ok) throw new Error("Network response was not ok");
+
     const lists = await res.json();
     console.log(lists);
 
-    // Example: display in HTML
     const listContainer = document.getElementById("list-container");
-    listContainer.innerHTML = lists.map(item => `<li>${item.title}</li>`).join("");
+    listContainer.innerHTML = lists
+      .map(item => `<li>${item.title}</li>`)
+      .join("");
+
   } catch (err) {
     console.error("Error fetching lists:", err);
   }
