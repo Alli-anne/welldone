@@ -42,21 +42,18 @@ function yesAndNo(event) {
 }
 
 function todoSubmitFunction() {
-  const listItem = document.createElement("li");
-  listItem.textContent = todoInput.value;
+    const listItem = document.createElement("li");
+    listItem.textContent = todoInput.value;
 
-  finishedList.appendChild(listItem);
+    finishedList.appendChild(listItem);
 
-  // Save locally
-  let todos = JSON.parse(localStorage.getItem("todos")) || [];
-  todos.push(todoInput.value);
-  localStorage.setItem("todos", JSON.stringify(todos));
+    // Save to localStorage
+    let todos = JSON.parse(localStorage.getItem("todos")) || [];
+    todos.push(todoInput.value);
+    localStorage.setItem("todos", JSON.stringify(todos));
 
-  todoInput.value = "";
-  getRandomAdvice();
-
-  // Refresh list after adding a new item
-  fetchLists();
+    todoInput.value = "";
+    getRandomAdvice();
 }
 /**
  * Load todos from localStorage and display them in the finished list.
@@ -64,6 +61,7 @@ function todoSubmitFunction() {
 function loadTodos() {
     // Retrieve todos from localStorage, or an empty array if none exist.
     let todos = JSON.parse(localStorage.getItem("todos")) || [];
+    createList(todos);
 
     // For each todo in the array, create a list item and append it to the finished list.
     todos.forEach(todo => {
@@ -118,27 +116,24 @@ async function fetchLists() {
   try {
     const res = await fetch("https://welldone-api.onrender.com/lists");
     if (!res.ok) throw new Error("Network response was not ok");
-
     const lists = await res.json();
     console.log(lists);
 
+    // Example: display in HTML
     const listContainer = document.getElementById("list-container");
-    listContainer.innerHTML = lists
-      .map(item => `<li>${item.title}</li>`)
-      .join("");
-
+    listContainer.innerHTML = lists.map(item => `<li>${item.title}</li>`).join("");
   } catch (err) {
     console.error("Error fetching lists:", err);
   }
 }
-async function createList() {
+async function createList(todos) {
   try {
     const res = await fetch("https://welldone-api.onrender.com/lists", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title: "New List" })
+      body: JSON.stringify({ title: `List ${Date.now()}`}, {todos})
     });
     if (!res.ok) throw new Error("Network response was not ok");
     const list = await res.json();
