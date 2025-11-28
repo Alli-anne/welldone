@@ -41,34 +41,57 @@ function yesAndNo(event) {
     }
 }
 
-function todoSubmitFunction() {
-    const listItem = document.createElement("li");
-    listItem.textContent = todoInput.value;
+async function todoSubmitFunction() {
+    const newTodo = todoInput.value.trim();
+    if (!newTodo) return;
 
+    // Display the new todo
+    const listItem = document.createElement("li");
+    listItem.textContent = newTodo;
     finishedList.appendChild(listItem);
 
-    // Save to localStorage
+    // Save locally
     let todos = JSON.parse(localStorage.getItem("todos")) || [];
-    todos.push(todoInput.value);
+    todos.push({ title: newTodo, date: getDate() });
     localStorage.setItem("todos", JSON.stringify(todos));
+
+    // Send to backend (single item)
+    await addTodoToServer(newTodo);
 
     todoInput.value = "";
     getRandomAdvice();
+}
+async function addTodoToServer(todo) {
+    try {
+        const res = await fetch("https://welldone-api-fm06.onrender.com/add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ todos:  todo, date: getDate(), user_id: 1 })
+        });
+
+        if (!res.ok) throw new Error("Network response was not ok");
+        const result = await res.json();
+        console.log("Todo sent to server:", result);
+
+    } catch (err) {
+        console.error("Error sending todo:", err);
+    }
 }
 /**
  * Load todos from localStorage and display them in the finished list.
  */
 function loadTodos() {
-    // Retrieve todos from localStorage, or an empty array if none exist.
-    let todos = JSON.parse(localStorage.getItem("todos")) || [];
-    createList(todos);
+    const todos = JSON.parse(localStorage.getItem("todos")) || [];
 
-    // For each todo in the array, create a list item and append it to the finished list.
+    finishedList.innerHTML = "";
+
     todos.forEach(todo => {
         const listItem = document.createElement("li");
-        listItem.textContent = todo;
+        // Use the title property if the todo is an object
+        listItem.textContent = todos.todo || JSON.stringify(todo);
         finishedList.appendChild(listItem);
     });
+
     updateCount();
 }
 function updateCount() {
@@ -112,28 +135,29 @@ async function getRandomAdvice(){
     }
 }
 
-async function fetchLists() {
-  try {
-    const res = await fetch("https://welldone-api.onrender.com/lists");
-    if (!res.ok) throw new Error("Network response was not ok");
-    const lists = await res.json();
-    console.log(lists);
+// async function fetchLists() {
+//   try {
+//     const res = await fetch("https://welldone-api.onrender.com/lists");
+//     if (!res.ok) throw new Error("Network response was not ok");
+//     const lists = await res.json();
+//     console.log(lists);
 
-    // Example: display in HTML
-    const listContainer = document.getElementById("list-container");
-    listContainer.innerHTML = lists.map(item => `<li>${item.title}</li>`).join("");
-  } catch (err) {
-    console.error("Error fetching lists:", err);
-  }
-}
-async function createList(todos) {
+//     // Example: display in HTML
+//     const listContainer = document.getElementById("list-container");
+//     listContainer.innerHTML = lists.map(item => `<li>${item.title}</li>`).join("");
+//   } catch (err) {
+//     console.error("Error fetching lists:", err);
+//   }
+// }
+export async function createList() {
+  let todos2 = document.getElementById("todo-input").value || JSON.parse(localStorage.getItem("todos")) || [];
   try {
-    const res = await fetch("https://welldone-api.onrender.com/lists", {
+    const res = await fetch("https://welldone-api-fm06.onrender.com/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ title: `List ${Date.now()}`}, {todos})
+      body: JSON.stringify({ todos: todos2, date: getDate(), user_id: 1 })
     });
     if (!res.ok) throw new Error("Network response was not ok");
     const list = await res.json();
@@ -143,7 +167,16 @@ async function createList(todos) {
   }
 }
 
-createList();
+function getDate(){
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate
+}
 
-// Call it when the page loads
-fetchLists();
+
+
+
+
