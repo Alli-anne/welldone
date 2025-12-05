@@ -1,6 +1,6 @@
 // Header
 import {loadHeaderFooter} from "./main.js";
-import { getDateInfo } from "./calendar.js";
+import { getDateInfo, loadTodosFromServer, getTodayDate} from "./calendar.js";
 
 loadHeaderFooter();
 const header = document.getElementById("header");
@@ -80,20 +80,7 @@ async function addTodoToServer(todo) {
 /**
  * Load todos from localStorage and display them in the finished list.
  */
-function loadTodos() {
-    const todos = JSON.parse(localStorage.getItem("todos")) || [];
-
-    finishedList.innerHTML = "";
-
-    todos.forEach(todo => {
-        const listItem = document.createElement("li");
-        // Use the title property if the todo is an object
-        listItem.textContent = todos.todo || JSON.stringify(todo);
-        finishedList.appendChild(listItem);
-    });
-
-    updateCount();
-}
+loadTodosFromServer();
 function updateCount() {
     let count = finishedList.children.length;
 
@@ -109,7 +96,7 @@ function updateCount() {
 }
 
 
-document.addEventListener("DOMContentLoaded", loadTodos);
+document.addEventListener("DOMContentLoaded", loadTodosFromServer);
 
 
 todoForm.addEventListener("submit", (event) => {
@@ -120,6 +107,8 @@ todoForm.addEventListener("submit", (event) => {
 
 yesButton.addEventListener("click", yesAndNo);
 noButton.addEventListener("click", yesAndNo);
+getTodayDate();
+getDateInfo();
 
 async function getRandomAdvice(){
     try {

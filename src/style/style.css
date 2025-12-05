@@ -209,9 +209,28 @@ footer {
 .middle-flex{
   color:var(--color-sage)
 }
-.main-content-cal{
+#main-content-cal{
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 
+#calendar-heading{
+  color:var(--color-sage);
+  background-color: #ED6A5A;
+  padding: 1rem;
+  border-radius: 1rem;
+  border-bottom: 10px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+}
+.calander-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: top;
+
+}
+#calander-picker{
+  max-height: 125px;
+}
