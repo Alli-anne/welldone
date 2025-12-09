@@ -234,3 +234,11 @@ footer {
 #calander-picker{
   max-height: 125px;
 }
+#finished-container2 li{
+  margin-left: 2rem;
+
+}
+#finished-container li{
+  margin-left: 0rem;
+
+}

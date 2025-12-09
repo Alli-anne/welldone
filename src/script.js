@@ -1,6 +1,7 @@
 // Header
 import {loadHeaderFooter} from "./main.js";
-import { getDateInfo, loadTodosFromServer, getTodayDate} from "./calendar.js";
+import { getDateInfo, loadTodosFromServer, getTodayDate, loadTodosFromServerUrl} from "./calendar.js";
+import { createUser, createLogin } from "./login.js";
 
 loadHeaderFooter();
 const header = document.getElementById("header");
@@ -61,12 +62,21 @@ async function todoSubmitFunction() {
     todoInput.value = "";
     getRandomAdvice();
 }
+
+function getUserId() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    return user ? user.user_id : null;   // returns logged-in user's ID
+}
 async function addTodoToServer(todo) {
     try {
         const res = await fetch("https://welldone-api-fm06.onrender.com/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ todos:  todo, date: getDate(), user_id: 1 })
+            body: JSON.stringify({
+                todos: todo,
+                date: getDate(),
+                user_id: getUserId()
+            })
         });
 
         if (!res.ok) throw new Error("Network response was not ok");
@@ -81,6 +91,7 @@ async function addTodoToServer(todo) {
  * Load todos from localStorage and display them in the finished list.
  */
 loadTodosFromServer();
+
 function updateCount() {
     let count = finishedList.children.length;
 
@@ -164,7 +175,6 @@ function getDate(){
     const formattedDate = `${year}-${month}-${day}`;
     return formattedDate
 }
-
 
 
 

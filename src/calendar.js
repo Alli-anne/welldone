@@ -29,9 +29,8 @@ export function getTodayDate() {
 
 
 
-export async function loadTodosFromServer(dateParam) {
-    // Use passed date, or URL date, or today
-    const date = dateParam || getDateFromURL() || getTodayDate();
+export async function loadTodosFromServer() {
+    const date = getTodayDate();
 
     try {
         const res = await fetch(`https://welldone-api-fm06.onrender.com/lists/date/${date}`);
@@ -39,7 +38,55 @@ export async function loadTodosFromServer(dateParam) {
 
         const data = await res.json();
 
-        const list = document.getElementById("finished-list");
+        const list = document.getElementById("finished-container2");
+        list.innerHTML = "";
+
+        let hasTodos = false; // <-- track if anything gets added
+
+        data.forEach(entry => {
+            let items = entry.todos;
+
+            if (!items) return;
+
+            if (typeof items === "string") {
+                items = [{ title: items }];
+            }
+
+            if (Array.isArray(items)) {
+                items.forEach(todo => {
+                    hasTodos = true; // <-- something was added
+                    const li = document.createElement("li");
+                    li.textContent = todo.title;
+                    list.appendChild(li);
+                });
+            }
+        });
+
+        // If nothing was added, show a message
+        if (!hasTodos) {
+            const msg = document.createElement("p");
+            msg.textContent = "No todos for this date.";
+            msg.style.opacity = "0.6";
+            list.appendChild(msg);
+        }
+
+    } catch (err) {
+        console.error("Error fetching todos:", err);
+    }
+}
+
+
+export async function loadTodosFromServerUrl() {
+    // Use passed date, or URL date, or today
+    const date = getDateFromURL();
+
+    try {
+        const res = await fetch(`https://welldone-api-fm06.onrender.com/lists/date/${date}`);
+        if (!res.ok) throw new Error("Network response was not ok");
+
+        const data = await res.json();
+
+        const list = document.getElementById("finished-container");
         list.innerHTML = "";
 
         data.forEach(entry => {
@@ -58,6 +105,9 @@ export async function loadTodosFromServer(dateParam) {
                     list.appendChild(li);
                 });
             }
+            else if(!items){
+               
+            }
         });
     } catch (err) {
         console.error("Error fetching todos:", err);
@@ -72,7 +122,7 @@ export async function loadTodosFromServer(dateParam) {
 
 
 
-loadTodosFromServer();
 
+loadTodosFromServerUrl();
 getDateInfo();
 loadHeaderFooter();

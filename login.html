@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Well Done</title>
     <link rel="stylesheet" href="/src/style/style.css">
-    <script type="module" src="./src/script.js"></script>
+    <script type="module" src="./src/login.js"></script>
     
 </head>
 <body>
     <header id="header"></header>
     <main>
-        <div class="more-info" id="more-info">
+        <div class="more-info">
             <h2>Login</h2>
-            <form >
+            <form id="login-form">
                 <label for="email-input">Email:</label>
                 <input type="email" id="email-input">
                 <label for="password-input">Password:</label>
@@ -21,8 +21,21 @@
                 <button type="submit" id="login-submit">Submit</button>
             </form>
         </div>
+        <div class="more-info">
+    <h2>Create an account</h2>
+    <form id="create-account-form">
+        <label for="create-email-input">Email:</label>
+        <input type="email" id="create-email-input">
+        <label for="create-password-input">Password:</label>
+        <input type="password" id="create-password-input">
+        <button type="submit" id="create-submit">Submit</button>
+    </form>
+</div>
+
     </main>
 
     <footer id="footer"></footer>
+        <script type="module" src="./src/login.js"></script>
+
 </body>
 </html>

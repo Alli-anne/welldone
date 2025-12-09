@@ -1,9 +1,10 @@
 import { loadHeaderFooter } from "./main.js";
-import { loadTodos, getTodayDate } from "./calendar.js";
-date = getTodayDate();
+import { loadTodosFromServer } from "./calendar.js";
 
-console.log(date);
 
-loadTodos();
+
+
+
+loadTodosFromServer();
 
 loadHeaderFooter();
