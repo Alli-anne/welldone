@@ -69,13 +69,13 @@ function getUserId() {
 }
 async function addTodoToServer(todo) {
     try {
-        const res = await fetch("https://welldone-api-fm06.onrender.com/add", {
+        const res = await fetch("https://welldone-api-fm06.onrender.com/lists", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 todos: todo,
                 date: getDate(),
-                user_id: getUserId()
+                user_id: 1
             })
         });
 
@@ -100,7 +100,6 @@ function updateCount() {
     } else {
         countDisplay.innerHTML = `You have ${count} things done today`;
     }
-
     console.log(count);
     
     
@@ -150,9 +149,9 @@ async function getRandomAdvice(){
 //   }
 // }
 export async function createList() {
-  let todos2 = document.getElementById("todo-input").value || JSON.parse(localStorage.getItem("todos")) || [];
+  let todos2 = document.getElementById("todo-input").value;
   try {
-    const res = await fetch("https://welldone-api-fm06.onrender.com/add", {
+    const res = await fetch("https://welldone-api-fm06.onrender.com/lists/add", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -176,6 +175,7 @@ function getDate(){
     return formattedDate
 }
 
+createList();
 
 
 

@@ -1,4 +1,5 @@
 import { loadHeaderFooter } from "./main.js";
 
-
-loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", () => {
+    loadHeaderFooter();
+});

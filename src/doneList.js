@@ -1,10 +1,8 @@
 import { loadHeaderFooter } from "./main.js";
-import { loadTodosFromServer } from "./calendar.js";
+import { loadTodosFromServer, getDateInfo } from "./calendar.js";
 
-
-
-
-
-loadTodosFromServer();
-
-loadHeaderFooter();
+document.addEventListener("DOMContentLoaded", () => {
+    getDateInfo();
+    loadTodosFromServer();
+    loadHeaderFooter();
+});

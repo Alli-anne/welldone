@@ -1,24 +1,27 @@
 import { loadHeaderFooter } from "./main.js";
 
-
-export async function getDateInfo(){
+export async function getDateInfo() {
     const dateInput = document.getElementById("date-input");
     const dateSubmit = document.getElementById("date-submit");
 
-    dateSubmit.addEventListener("click", (event) =>{
+    if (!dateInput || !dateSubmit) {
+        // Silently return - these elements may not exist on all pages
+        return;
+    }
+
+    dateSubmit.addEventListener("click", (event) => {
         event.preventDefault();
         const date = dateInput.value;
-        console.log(date);
-        window.location.href = `calendar.html?date=${date}`
-        console.log(date);
-        const loadList =  loadTodos(date);
-        console.log(loadList);
-    })
+        if (!date) return;
+        window.location.href = `calendar.html?date=${date}`;
+    });
 }
+
 function getDateFromURL() {
     const params = new URLSearchParams(window.location.search);
-    return params.get("date");  // "2025-11-20"
+    return params.get("date");
 }
+
 export function getTodayDate() {
     const today = new Date();
     const year = today.getFullYear();
@@ -27,102 +30,56 @@ export function getTodayDate() {
     return `${year}-${month}-${day}`;
 }
 
+async function populateList(listId, date) {
+    const list = document.getElementById(listId);
+    if (!list) {
+        // Silently return - this container may not exist on all pages
+        return;
+    }
+    list.innerHTML = "";
 
+    try {
+        const res = await fetch(`https://welldone-api-fm06.onrender.com/lists/date/${date}`);
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
+
+        data.forEach(entry => {
+            let items = entry.todos;
+            if (!items) return;
+
+            if (typeof items === "string") items = [{ title: items }];
+
+            if (Array.isArray(items)) {
+                items.forEach(todo => {
+                    const li = document.createElement("li");
+                    li.textContent = todo.title;
+                    list.appendChild(li);
+                });
+            }
+        });
+    } catch (err) {
+        console.error(`Error fetching todos for ${listId}:`, err);
+    }
+}
 
 export async function loadTodosFromServer() {
     const date = getTodayDate();
-
-    try {
-        const res = await fetch(`https://welldone-api-fm06.onrender.com/lists/date/${date}`);
-        if (!res.ok) throw new Error("Network response was not ok");
-
-        const data = await res.json();
-
-        const list = document.getElementById("finished-container2");
-        list.innerHTML = "";
-
-        let hasTodos = false; // <-- track if anything gets added
-
-        data.forEach(entry => {
-            let items = entry.todos;
-
-            if (!items) return;
-
-            if (typeof items === "string") {
-                items = [{ title: items }];
-            }
-
-            if (Array.isArray(items)) {
-                items.forEach(todo => {
-                    hasTodos = true; // <-- something was added
-                    const li = document.createElement("li");
-                    li.textContent = todo.title;
-                    list.appendChild(li);
-                });
-            }
-        });
-
-        // If nothing was added, show a message
-        if (!hasTodos) {
-            const msg = document.createElement("p");
-            msg.textContent = "No todos for this date.";
-            msg.style.opacity = "0.6";
-            list.appendChild(msg);
-        }
-
-    } catch (err) {
-        console.error("Error fetching todos:", err);
-    }
+    await populateList("finished-container2", date);
 }
-
 
 export async function loadTodosFromServerUrl() {
-    // Use passed date, or URL date, or today
-    const date = getDateFromURL();
+    const date = getDateFromURL() || getTodayDate();
+    await populateList("finished-container", date);
 
-    try {
-        const res = await fetch(`https://welldone-api-fm06.onrender.com/lists/date/${date}`);
-        if (!res.ok) throw new Error("Network response was not ok");
-
-        const data = await res.json();
-
-        const list = document.getElementById("finished-container");
-        list.innerHTML = "";
-
-        data.forEach(entry => {
-            let items = entry.todos;
-
-            if (!items) return;
-
-            if (typeof items === "string") {
-                items = [{ title: items }];
-            }
-
-            if (Array.isArray(items)) {
-                items.forEach(todo => {
-                    const li = document.createElement("li");
-                    li.textContent = todo.title;
-                    list.appendChild(li);
-                });
-            }
-            else if(!items){
-               
-            }
-        });
-    } catch (err) {
-        console.error("Error fetching todos:", err);
-    }
-
-    // Update date display
     const dateDisplay = document.getElementById("date-display");
-    if (dateDisplay) {
-        dateDisplay.textContent = date;
-    }
+    if (dateDisplay) dateDisplay.textContent = date;
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    loadTodosFromServerUrl();
+    loadTodosFromServer();
+    getDateInfo();
+    loadHeaderFooter();
+});
 
 
-
-loadTodosFromServerUrl();
-getDateInfo();
-loadHeaderFooter();

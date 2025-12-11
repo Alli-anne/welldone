@@ -1,64 +1,11 @@
 import { loadHeaderFooter } from "./main.js";
 
-// const API_BASE = "https://welldone-api-fm06.onrender.com";
+const API_BASE = "https://welldone-api-fm06.onrender.com";
 
-// -------- Login form --------
-const loginForm = document.getElementById("login-form");
-const emailInput = document.getElementById("email-input");
-const passwordInput = document.getElementById("password-input");
-
-loginForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (!emailInput.value || !passwordInput.value) {
-        alert("Please enter both email and password");
-        return;
-    }
-
-    const loginData = { email: emailInput.value, password: passwordInput.value };
-    const loginResponse = await createLogin(loginData);
-
-    if (loginResponse && loginResponse._id) {
-        alert(`Welcome back! ${loginResponse.username}`);
-        window.location.href = "dashboard.html";
-    } else {
-        alert("Login failed. Check your email and password.");
-    }
-});
-
-// -------- Registration form --------
-const registerForm = document.getElementById("create-account-form");
-const createEmailInput = document.getElementById("create-email-input");
-const createPasswordInput = document.getElementById("create-password-input");
-
-registerForm.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (!createEmailInput.value || !createPasswordInput.value) {
-        alert("Please enter both email and password");
-        return;
-    }
-
-    const userData = {
-        email: createEmailInput.value,
-        password: createPasswordInput.value
-    };
-
-    const response = await createUser(userData);
-    if (response && response.insertedId) {
-        alert("User created successfully!");
-        // optionally clear the form
-        registerForm.reset();
-    } else {
-        alert("Failed to create user. Try again.");
-    }
-});
-
-// -------- API calls --------
+// API calls (these don't need DOM)
 export async function createLogin(loginData) {
     try {
-        const res = await fetch(`${API_BASE}/auth/login
-`, {
+        const res = await fetch(`${API_BASE}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(loginData)
@@ -74,7 +21,7 @@ export async function createLogin(loginData) {
 
 export async function createUser(userData) {
     try {
-        const res = await fetch(`${API_BASE}/add`, {
+    const res = await fetch(`${API_BASE}/users`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(userData)
@@ -88,5 +35,63 @@ export async function createUser(userData) {
     }
 }
 
-loadHeaderFooter();
+// Initialize after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+    // Login form
+    const loginForm = document.getElementById("login-form");
+    const emailInput = document.getElementById("email-input");
+    const passwordInput = document.getElementById("password-input");
+
+    if (loginForm && emailInput && passwordInput) {
+        loginForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (!emailInput.value || !passwordInput.value) {
+                alert("Please enter both email and password");
+                return;
+            }
+
+            const loginData = { email: emailInput.value, password: passwordInput.value };
+            const loginResponse = await createLogin(loginData);
+
+            if (loginResponse && loginResponse._id) {
+                alert(`Welcome back! ${loginResponse.username}`);
+                window.location.href = "dashboard.html";
+            } else {
+                alert("Login failed. Check your email and password.");
+            }
+        });
+    }
+
+    // Registration form
+    const registerForm = document.getElementById("create-account-form");
+    const createEmailInput = document.getElementById("create-email-input");
+    const createPasswordInput = document.getElementById("create-password-input");
+
+    if (registerForm && createEmailInput && createPasswordInput) {
+        registerForm.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            if (!createEmailInput.value || !createPasswordInput.value) {
+                alert("Please enter both email and password");
+                return;
+            }
+
+            const userData = {
+                email: createEmailInput.value,
+                password: createPasswordInput.value
+            };
+
+            const response = await createUser(userData);
+            if (response && response.insertedId) {
+                alert("User created successfully!");
+                registerForm.reset();
+            } else {
+                alert("Failed to create user. Try again.");
+            }
+        });
+    }
+
+    loadHeaderFooter();
+});
 
