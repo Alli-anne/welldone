@@ -42,7 +42,7 @@ function yesAndNo(event) {
     }
 }
 
-async function todoSubmitFunction() {
+export async function todoSubmitFunction() {
     const newTodo = todoInput.value.trim();
     if (!newTodo) return;
 
@@ -91,21 +91,21 @@ async function addTodoToServer(todo) {
  */
 loadTodosFromServer();
 
-function updateCount() {
-    let count = finishedList.children.length;
+// function updateCount() {
+//     let count = finishedList.children.length;
 
-    if (count === 0) {
-        countDisplay.innerHTML = `You still have time to be productive`;
-    } else {
-        countDisplay.innerHTML = `You have ${count} things done today`;
-    }
-    console.log(count);
+//     if (count === 0) {
+//         countDisplay.innerHTML = `You still have time to be productive`;
+//     } else {
+//         countDisplay.innerHTML = `You have ${count} things done today`;
+//     }
+//     console.log(count);
     
     
-}
+// }
 
 
-updateCount();
+
 
 
 todoForm.addEventListener("submit", (event) => {

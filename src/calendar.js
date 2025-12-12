@@ -72,7 +72,7 @@ export async function loadTodosFromServerUrl() {
         const data = await res.json();
 
         const list = document.getElementById("finished-container");
-        list.innerHTML = "";
+        
 
         data.forEach(entry => {
             let items = entry.todos;
@@ -91,7 +91,6 @@ export async function loadTodosFromServerUrl() {
                 });
             }
         });
-
     } catch (err) {
         console.error("Error fetching todos:", err);
     }
