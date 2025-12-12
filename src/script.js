@@ -1,7 +1,7 @@
 // Header
 import {loadHeaderFooter} from "./main.js";
 import { getDateInfo, loadTodosFromServer, getTodayDate, loadTodosFromServerUrl} from "./calendar.js";
-import { createUser, createLogin } from "./login.js";
+import { createUser} from "./login.js";
 
 loadHeaderFooter();
 const header = document.getElementById("header");
@@ -63,19 +63,18 @@ async function todoSubmitFunction() {
     getRandomAdvice();
 }
 
-function getUserId() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    return user ? user.user_id : null;   // returns logged-in user's ID
-}
+// function getUserId() {
+//     const user = JSON.parse(localStorage.getItem("user"));
+//     return user ? user.user_id : null;   // returns logged-in user's ID
+// }
 async function addTodoToServer(todo) {
     try {
-        const res = await fetch("https://welldone-api-fm06.onrender.com/lists", {
+        const res = await fetch("https://welldone-api-fm06.onrender.com/lists/add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 todos: todo,
-                date: getDate(),
-                user_id: 1
+                date: getDate()
             })
         });
 
@@ -106,7 +105,7 @@ function updateCount() {
 }
 
 
-document.addEventListener("DOMContentLoaded", loadTodosFromServer);
+updateCount();
 
 
 todoForm.addEventListener("submit", (event) => {
@@ -151,12 +150,12 @@ async function getRandomAdvice(){
 export async function createList() {
   let todos2 = document.getElementById("todo-input").value;
   try {
-    const res = await fetch("https://welldone-api-fm06.onrender.com/lists/add", {
+    const res = await fetch("https://welldone-api-fm06.onrender.com/lists", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ todos: todos2, date: getDate(), user_id: 1 })
+      body: JSON.stringify({ todos: todos2, date: getDate() })
     });
     if (!res.ok) throw new Error("Network response was not ok");
     const list = await res.json();
@@ -175,7 +174,6 @@ function getDate(){
     return formattedDate
 }
 
-createList();
 
 
 
