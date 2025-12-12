@@ -161,7 +161,8 @@ footer {
   justify-content: flex-start;
   width:100%;
 }
-.alert-info{
+#alert-info{
+  display:none;
   background-color: var(--color-coral);
   border-radius: 1rem;
   margin: 1rem;
@@ -170,6 +171,16 @@ footer {
   padding-top: 0;
   border-bottom: 10px solid var(--color-indigo);
   border-right: 5px solid var(--color-indigo);
+  grid-row: span 3;
+   width: 50vw;
+  height: 10vh;
+
+}
+.alert-flex{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+  
 }
 .alert-info h3{
   color:var(--color-indigo);
@@ -241,4 +252,15 @@ footer {
 #finished-container li{
   margin-left: 0rem;
 
+}
+
+.alerts{
+  background-color: var(--color-coral);
+  border-radius: 1rem;
+  margin: 1rem;
+  margin-left: 3rem;
+  padding: 3rem;
+  padding-top: 0;
+  border-bottom: 10px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
 }

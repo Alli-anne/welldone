@@ -10,7 +10,11 @@
 </head>
 <body>
     <header id="header"></header>
-    <main>
+    <main class="alerts-flex">
+        <section class="alert-info hide" id="alert-info">
+            <h3>A little random piece of advice</h3>
+            <p id="advice" class="none"></p>
+        </section>
         <section class="todo" id="todo-section">
             <h2 id="todo-heading">What you have done today</h2>
             <form class="todo--form" id="todo-form">
@@ -30,10 +34,7 @@
                 </form>
             </div>
         </div>
-        <section class="alert-info hide">
-        <h3>A little random piece of advice</h3>
-        <p id="advice" class="none"></p>
-    </section>
+        
     </main>
 
     <footer id="footer"></footer>

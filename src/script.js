@@ -60,6 +60,8 @@ export async function todoSubmitFunction() {
     await addTodoToServer(newTodo);
 
     todoInput.value = "";
+    const design = document.getElementById("alert-info");
+    design.style.display = "block";
     getRandomAdvice();
 }
 
@@ -79,11 +81,17 @@ async function addTodoToServer(todo) {
         });
 
         if (!res.ok) throw new Error("Network response was not ok");
+
         const result = await res.json();
         console.log("Todo sent to server:", result);
+        alert("Todo sent to server!");
+         
+
+
 
     } catch (err) {
         console.error("Error sending todo:", err);
+        alert("Error sending todo. Please try again.");
     }
 }
 /**
@@ -118,6 +126,7 @@ yesButton.addEventListener("click", yesAndNo);
 noButton.addEventListener("click", yesAndNo);
 getTodayDate();
 getDateInfo();
+
 
 async function getRandomAdvice(){
     try {
@@ -160,8 +169,10 @@ export async function createList() {
     if (!res.ok) throw new Error("Network response was not ok");
     const list = await res.json();
     console.log(list);
+    alert("List created successfully!");
   } catch (err) {
     console.error("Error creating list:", err);
+    alert("Error creating list. Please try again.");
   }
 }
 
@@ -175,5 +186,8 @@ function getDate(){
 }
 
 
-
+function addDesign(){
+    const design = document.getElementById("addDesign");
+    design.style.display = "block";
+}
 

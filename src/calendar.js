@@ -90,6 +90,9 @@ export async function loadTodosFromServerUrl() {
                     list.appendChild(li);
                 });
             }
+            else if(!Array.isArray(items)) {
+                alert("No todos for this date");
+            }
         });
     } catch (err) {
         console.error("Error fetching todos:", err);
