@@ -5,16 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Well Done</title>
     <link rel="stylesheet" href="/src/style/style.css">
-    <script type="module" src="./src/script.js"></script>
+    <script type="module" src="./src/reflection.js"></script>
     
 </head>
 <body>
     <header id="header"></header>
     <main>
-         <div class="middle-flex">
-        <div class="more-info" id="more-info">
-            <h2>Reflections</h2>
+       
+        <div class="more-info" id="calander-picker" >
+            <h2>Calendar</h2>
+            <h3 id="date-display">Pick a Week</h3>
+            <form >
+                <input type="date" id="date-input">
+                <button type="submit" id="date-submit-refelction">Submit</button>
+            </form>
         </div>
+         <div class="middle-flex">
+            <h2 class="reflection-title">Reflections</h2>
+        <div class="more-info" id="more-info-reflection">
+                <div class="reflection">
+                    <h3 class="reflection-review" id="reflection-count">Number Of Tasks this Week</h3>
+                    <h3 class="answer" id="todo-count"></h3>
+                </div>
+                <div class="reflection">
+                    <h3 class="reflection-review" id="reflection-count">Most Done Task</h3>
+                    <h3  class="answer" id="most-done"></h3>
+                </div>
+                <div class="reflection">
+                    <h3 class="reflection-review" id="reflection-count">Most Productive Day</h3>
+                    <h3 class="answer" id="most-done-day"></h3>
+                </div>
+                <div class="reflection">
+                    <h3 class="reflection-review" id="reflection-count">Streak of Task Completed</h3>
+                    <h3 class="answer" id="Streak"></h3>
+                </div>
+
+            </div>
+        </div>
+        
     </main>
 
     <footer id="footer"></footer>

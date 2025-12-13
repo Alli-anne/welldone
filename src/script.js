@@ -2,6 +2,7 @@
 import {loadHeaderFooter} from "./main.js";
 import { getDateInfo, loadTodosFromServer, getTodayDate, loadTodosFromServerUrl} from "./calendar.js";
 import { createUser} from "./login.js";
+import {renderWeeklyAnalytics} from "./reflection.js";
 
 loadHeaderFooter();
 const header = document.getElementById("header");

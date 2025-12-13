@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Adjust based on your API’s actual return format
       if (loginResponse && (loginResponse.user || loginResponse._id)) {
         const username = loginResponse.username || loginResponse.user?.username || "User";
-        alert(`Welcome back, ${username}!`);
+        alert(`Welcome back, ${emailInput}!`);
         window.location.href = "dashboard.html";
       } else {
         alert("Login failed. Check your email and password.");

@@ -69,7 +69,7 @@ header #auth-nav a {
 
 main {
   margin: 1rem;
-  padding: 0;
+  padding: 1rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -92,7 +92,6 @@ main .more-info {
   text-transform: uppercase;
   margin: 0;
   padding: 0;
-  text-align: left;
 }
 .todo .finished {
   background-color: var(--color-coral);
@@ -150,7 +149,7 @@ footer {
   border-radius: 1rem;
   position: fixed;
   bottom: 0;
-  left: 1rem;
+  left: 0rem;
   width: 100%;
   padding: 0.5rem;
   text-align: center;
@@ -212,8 +211,8 @@ footer {
   img {
     width: 40%;
   }
-  footer {
-    position: static;
+  footer img{
+    width: 20%;
   }
 }
 
@@ -263,4 +262,45 @@ footer {
   padding-top: 0;
   border-bottom: 10px solid var(--color-indigo);
   border-right: 5px solid var(--color-indigo);
+}
+.reflection-title{
+  color:var(--color-sage);
+  background-color: #ED6A5A;
+  padding: 1rem;
+  border-radius: 1rem;
+  border-bottom: 10px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+  max-width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.reflection-review{
+  color:var(--color-indigo);
+  font-size: 1.5rem;
+}
+.reflection{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0rem;
+}
+.answer{
+  font-size: 1rem;
+  color:var(--color-sage);
+  background-color: #ED6A5A;
+  padding: .5rem;
+  border-radius: 1rem;
+  border-bottom: 5px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+  margin-bottom: 0;
+ 
+
+}
+#more-info-reflection{
+  max-width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  padding-bottom: 0%;
 }
