@@ -56,6 +56,7 @@ export async function todoSubmitFunction() {
     let todos = JSON.parse(localStorage.getItem("todos")) || [];
     todos.push({ title: newTodo, date: getDate() });
     localStorage.setItem("todos", JSON.stringify(todos));
+      updateCount();
 
     // Send to backend (single item)
     await addTodoToServer(newTodo);
@@ -100,18 +101,18 @@ async function addTodoToServer(todo) {
  */
 loadTodosFromServer();
 
-// function updateCount() {
-//     let count = finishedList.children.length;
+function updateCount() {
+    let count = finishedList.children.length;
 
-//     if (count === 0) {
-//         countDisplay.innerHTML = `You still have time to be productive`;
-//     } else {
-//         countDisplay.innerHTML = `You have ${count} things done today`;
-//     }
-//     console.log(count);
+    if (count === 0) {
+        countDisplay.innerHTML = `You still have time to be productive`;
+    } else {
+        countDisplay.innerHTML = `You have ${count} things done today`;
+    }
+    console.log(count);
     
     
-// }
+}
 
 
 

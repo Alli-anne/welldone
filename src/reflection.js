@@ -1,8 +1,6 @@
 import { loadHeaderFooter } from "./main.js";
 
-/* =========================
-   WEEK HELPERS
-========================= */
+
 
 function getWeekRange(date = new Date()) {
   const d = new Date(date);
@@ -30,9 +28,7 @@ function filterTodosByWeek(todos, date = new Date()) {
   });
 }
 
-/* =========================
-   ANALYTICS FUNCTIONS
-========================= */
+
 
 function getMostDoneTask(todos) {
   const counts = {};
@@ -138,8 +134,8 @@ async function getAnalyticsForWeek(date = new Date()) {
    RENDER TO DOM
 ========================= */
 
-export async function renderWeeklyAnalytics() {
-  const stats = await getAnalyticsForWeek();
+export async function renderWeeklyAnalytics(date = new Date()) {
+  const stats = await getAnalyticsForWeek(date);
 
   document.getElementById("todo-count").textContent =
     stats.weekCount;
@@ -161,4 +157,21 @@ export async function renderWeeklyAnalytics() {
 document.addEventListener("DOMContentLoaded", () => {
   loadHeaderFooter();
   renderWeeklyAnalytics();
+});
+
+const dateForm = document.querySelector("form");
+const dateInput = document.getElementById("date-input");
+
+dateForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  if (!dateInput.value) return;
+
+  const selectedDate = new Date(dateInput.value);
+  renderWeeklyAnalytics(selectedDate);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadHeaderFooter();
+  renderWeeklyAnalytics(); // defaults to current week
 });

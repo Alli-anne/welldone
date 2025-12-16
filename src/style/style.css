@@ -304,3 +304,63 @@ footer {
   padding: 1rem;
   padding-bottom: 0%;
 }
+.todo--button, #date-submit {
+  transition: all 0.3s ease;
+}
+
+.todo--button:hover, #date-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
+  background-color: #f47a6c;
+  font-family: var(--font-body);
+  
+}
+
+.todo--button:active, #date-submit:active {
+  transform: translateY(-1px);
+}
+.todo--button, #date-submit {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
+  border-bottom: 5px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+  font-family: var(--font-body);
+  background-color: #ED6A5A;
+  color: var(--color-sage);
+  font-size: 1rem;
+  border-radius: .5rem;
+}
+
+.todo--button:active, #date-submit:active {
+  transform: translateY(-1px);
+}
+#yes, #no{
+  border-bottom: 5px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+  font-family: var(--font-body);
+  background-color: #ED6A5A;
+  color: var(--color-sage);
+  font-size: 1rem;
+  border-radius: .5rem;
+}
+#yes:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
+  background-color: #f47a6c;
+  font-family: var(--font-body);
+}
+a:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
+  background-color: #f47a6c;
+  font-family: var(--font-body);
+    border-bottom: 5px solid var(--color-indigo);
+  border-right: 5px solid var(--color-indigo);
+}
+.more-info:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
+  font-family: var(--font-body);
+  border-bottom: 0px solid var(--color-indigo);
+  border-right: 0px solid var(--color-indigo);
+}
