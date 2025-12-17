@@ -30,7 +30,7 @@ function filterTodosByWeek(todos, date = new Date()) {
 
 
 
-function getMostDoneTask(todos) {
+export function getMostDoneTask(todos) {
   const counts = {};
 
   todos.forEach(todo => {
@@ -116,7 +116,7 @@ async function getAnalyticsForWeek(date = new Date()) {
   if (weekTodos.length === 0) {
     return {
       weekCount: 0,
-      mostDoneTask: { task: "—", count: 0 },
+      mostDoneTask: { task: "-", count: 0 },
       mostProductiveDay: { day: "—", count: 0 },
       longestStreak: 0
     };

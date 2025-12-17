@@ -70,6 +70,7 @@ header #auth-nav a {
 main {
   margin: 1rem;
   padding: 1rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -343,7 +344,7 @@ footer {
   font-size: 1rem;
   border-radius: .5rem;
 }
-#yes:hover{
+#yes:hover, #no:hover{
   transform: translateY(-3px);
   box-shadow: 0 5px 15px rgba(93, 87, 107, 0.3);
   background-color: #f47a6c;

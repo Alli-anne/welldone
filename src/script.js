@@ -56,15 +56,18 @@ export async function todoSubmitFunction() {
     let todos = JSON.parse(localStorage.getItem("todos")) || [];
     todos.push({ title: newTodo, date: getDate() });
     localStorage.setItem("todos", JSON.stringify(todos));
-      updateCount();
+   
 
     // Send to backend (single item)
     await addTodoToServer(newTodo);
+  
+
+    
 
     todoInput.value = "";
     const design = document.getElementById("alert-info");
     design.style.display = "block";
-    getRandomAdvice();
+    body.style.display = "none";
 }
 
 // function getUserId() {
@@ -85,11 +88,9 @@ async function addTodoToServer(todo) {
         if (!res.ok) throw new Error("Network response was not ok");
 
         const result = await res.json();
-        console.log("Todo sent to server:", result);
-        alert("Todo sent to server!");
+        console.log("Task sent to server:", result);
+        alert(`Task sent to server! You have ${result} thing${result !== 1 ? "s" : ""} done today`);
          
-
-
 
     } catch (err) {
         console.error("Error sending todo:", err);
@@ -101,19 +102,22 @@ async function addTodoToServer(todo) {
  */
 loadTodosFromServer();
 
-function updateCount() {
-    let count = finishedList.children.length;
+async function updateCount(todayDate) {
+    try {
+        const res = await fetch("https://welldone-api-fm06.onrender.com/lists");
+        if (!res.ok) throw new Error("Failed to fetch todos");
 
-    if (count === 0) {
-        countDisplay.innerHTML = `You still have time to be productive`;
-    } else {
-        countDisplay.innerHTML = `You have ${count} things done today`;
+        const todos = await res.json();
+
+        const count = todos.filter(todo => todo.date === todayDate).length;
+
+        countDisplay.innerHTML = `You have ${count} thing${count !== 1 ? "s" : ""} done today`;
+        console.log(count);
+    } catch (error) {
+        console.error(error);
+        countDisplay.innerHTML = "Unable to load today's progress";
     }
-    console.log(count);
-    
-    
 }
-
 
 
 
@@ -138,7 +142,7 @@ async function getRandomAdvice(){
         const quote = data.slip.advice;
         const advice = document.getElementById("advice");
         advice.textContent = quote;
-        
+        return quote;
     } catch (error) {
         console.error(error);
     }
@@ -193,3 +197,4 @@ function addDesign(){
     design.style.display = "block";
 }
 
+  updateCount(getDate());
