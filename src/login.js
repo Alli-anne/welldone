@@ -86,8 +86,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const loginResponse = await checkLogin(emailInput.value, passwordInput.value);
-      localStorage.setItem("user", JSON.stringify(result.user));
+     
       console.log("Full login response:", loginResponse); // Debug - see what you actually get back
+            
+
 
       if (loginResponse) {
         // Store user info in localStorage for later use
@@ -97,7 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const displayName = loginResponse.email || loginResponse.username || "User";
         
         alert(`Welcome back, ${emailInput.value}!`);
-        
+        login = localStorage.setItem("_id", JSON.stringify(result._id));
+        console.log(login);
         // Redirect to main page (change if you want different page)
         window.location.href = "index.html";
       } else {

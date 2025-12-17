@@ -68,6 +68,7 @@ export async function todoSubmitFunction() {
     const design = document.getElementById("alert-info");
     design.style.display = "block";
     body.style.display = "none";
+    getRandomAdvice();
 }
 
 // function getUserId() {

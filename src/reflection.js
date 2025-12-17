@@ -140,8 +140,8 @@ export async function renderWeeklyAnalytics(date = new Date()) {
   document.getElementById("todo-count").textContent =
     stats.weekCount;
 
-  document.getElementById("most-done").textContent =
-    stats.mostDoneTask.task;
+  // document.getElementById("most-done").textContent =
+  //   stats.mostDoneTask.task;
 
   document.getElementById("most-done-day").textContent =
     stats.mostProductiveDay.day;
